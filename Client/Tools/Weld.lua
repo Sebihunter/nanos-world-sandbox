@@ -52,10 +52,12 @@ function HandleWeldTool(tool)
 end
 
 Events:Subscribe("PickUpToolGun_WeldTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {"Weld", "'Left Mouse' = Weld two objects together"})
 	HandleWeldTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_WeldTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 
 	if (WeldTool.welding_start_to) then

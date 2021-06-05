@@ -25,10 +25,12 @@ function HandleLightTool(weapon)
 end
 
 Events:Subscribe("PickUpToolGun_LightTool", function(tool)
+main_hud:CallEvent("UpdateToolgun", {"Lights", "'Left Mouse' = Create a light with a random color"})
 	HandleLightTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_LightTool", function(tool)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 end)
 

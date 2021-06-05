@@ -78,10 +78,12 @@ Client:Subscribe("MouseUp", function(key_name)
 end)
 
 Events:Subscribe("PickUpToolGun_ResizerTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {"Resize", "'Left Mouse + Mouse Wheel' = Change object size"})
 	HandleResizerTool(tool, character)
 end)
 
 Events:Subscribe("DropToolGun_ResizerTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 	character:Unsubscribe("WeaponAimModeChanged")
 

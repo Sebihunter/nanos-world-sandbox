@@ -14,6 +14,8 @@ PhysicsGun = {
 	quaternion_rotate_back = Rotator(11.25, 0, 0):Quaternion(),
 	quaternion_rotate_right = Rotator(0, -11.25, 0):Quaternion(),
 	quaternion_rotate_left = Rotator(0, 11.25, 0):Quaternion(),
+	quaternion_rotate_right2 = Rotator(0, 0, -11.25):Quaternion(),
+	quaternion_rotate_left2 = Rotator(0, 0, 11.25):Quaternion(),	
 	grabbed_sound = nil,
 }
 
@@ -36,11 +38,14 @@ function HandlePhysicsGun(weapon, character)
 			TogglePhysicsGunLocal(false)
 		end
 	end)
-
+	
+	
+	main_hud:CallEvent("UpdateToolgun", {"Physics Gun", "'Left Mouse' = Select Object, 'Right Mouse' = Freeze Object, 'E + Mouse Wheel' = Rotate, 'E + Alt + Mouse Wheel' = Rotate, 'Alt + Mouse Wheel' = Rotate"})
 	-- Sets some notification when grabbing the Light Tool
 	SetNotification("PHYSICS_GUN_FREEZE", 10000, "while using a Physics Gun, press with the Right Click to freeze the object", 8000)
 	SetNotification("PHYSICS_GUN_ROTATE", 25000, "you can rotate the object you are moving while holding E key and Mouse Wheel", 8000)
 	SetNotification("PHYSICS_GUN_ROTATE_ANOTHER", 35000, "you can rotate the object you are moving in another direction while holding Alt+E key and Mouse Wheel", 8000)
+	SetNotification("PHYSICS_GUN_ROTATE_ANOTHER2", 35000, "you can also rotate the object you are moving in yet another direction while holding Alt key and Mouse Wheel", 8000)
 	SetNotification("PHYSICS_GUN_ROTATE_DISTANCE", 50000, "you can approximate the object you are moving with Mouse Wheel", 8000)
 end
 
@@ -188,6 +193,9 @@ Client:Subscribe("MouseUp", function(key_name)
 			end
 
 			PhysicsGun.picking_object_initial_rotation = new_rot:Rotator()
+		elseif PhysicsGun.is_holding_alt then
+			new_rot = PhysicsGun.quaternion_rotate_right2 * PhysicsGun.picking_object_initial_rotation:Quaternion()
+			PhysicsGun.picking_object_initial_rotation = new_rot:Rotator()
 		else
 			-- If mouse scroll, updates the Distance of the object from the camera
 			PhysicsGun.picking_object_distance = PhysicsGun.picking_object_distance + 25
@@ -206,6 +214,9 @@ Client:Subscribe("MouseUp", function(key_name)
 			end
 
 			PhysicsGun.picking_object_initial_rotation = new_rot:Rotator()
+		elseif PhysicsGun.is_holding_alt then
+			new_rot = PhysicsGun.quaternion_rotate_left2 * PhysicsGun.picking_object_initial_rotation:Quaternion()
+			PhysicsGun.picking_object_initial_rotation = new_rot:Rotator()			
 		else
 			-- If mouse scroll, updates the PhysicsGun.picking_object_distance of the object from the camera
 			PhysicsGun.picking_object_distance = PhysicsGun.picking_object_distance - 25
@@ -300,6 +311,7 @@ Events:Subscribe("PickUpToolGun_PhysicsGun", function(tool, character)
 end)
 
 Events:Subscribe("DropToolGun_PhysicsGun", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 	character:Unsubscribe("WeaponAimModeChanged")
 

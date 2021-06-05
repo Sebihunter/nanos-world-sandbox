@@ -49,10 +49,12 @@ function HandleRopeTool(tool)
 end
 
 Events:Subscribe("PickUpToolGun_RopeTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {"Rope", "'Left Mouse' = Create a Rope between to points"})
 	HandleRopeTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_RopeTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 
 	if (RopeTool.attaching_start_to) then

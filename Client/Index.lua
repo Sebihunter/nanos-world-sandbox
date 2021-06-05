@@ -97,6 +97,7 @@ function UpdateLocalCharacter(character)
 	-- Sets on character an event to remove the ammo ui when he drops it's weapon
 	character:Subscribe("Drop", function(charac, object)
 		UpdateAmmo(false)
+		main_hud:CallEvent("UpdateToolgun", {false, false})
 		character:Unsubscribe("Fire")
 		character:Unsubscribe("Reload")
 	end)

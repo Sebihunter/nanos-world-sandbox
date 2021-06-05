@@ -15,10 +15,12 @@ function HandleRemoverTool(weapon)
 end
 
 Events:Subscribe("PickUpToolGun_RemoverTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {"Remover", "'Left Mouse' = Remove object"})
 	HandleRemoverTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_RemoverTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 end)
 

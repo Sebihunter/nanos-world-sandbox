@@ -17,10 +17,12 @@ function HandleColorTool(tool)
 end
 
 Events:Subscribe("PickUpToolGun_ColorTool", function(tool)
+	main_hud:CallEvent("UpdateToolgun", {"Color", "'Left Mouse' = Change an objects color randomly"})
 	HandleColorTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_ColorTool", function(tool)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 end)
 

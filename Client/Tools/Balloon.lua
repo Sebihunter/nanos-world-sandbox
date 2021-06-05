@@ -33,10 +33,12 @@ function HandleBalloonTool(weapon)
 end
 
 Events:Subscribe("PickUpToolGun_BalloonTool", function(tool)
+	main_hud:CallEvent("UpdateToolgun", {"Balloon", "'Left Mouse' = Attach a balloon"})
 	HandleBalloonTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_BalloonTool", function(tool)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 end)
 

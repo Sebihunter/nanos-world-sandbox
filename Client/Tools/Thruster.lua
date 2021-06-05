@@ -31,10 +31,12 @@ Events:Subscribe("SpawnThruster", function(thruster_prop)
 end)
 
 Events:Subscribe("PickUpToolGun_ThrusterTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {"Thruster", "'Left Mouse' = Create a always-on Thruster"})
 	HandleThrusterTool(tool)
 end)
 
 Events:Subscribe("DropToolGun_ThrusterTool", function(tool, character)
+	main_hud:CallEvent("UpdateToolgun", {false, false})
 	tool:Unsubscribe("Fire")
 end)
 

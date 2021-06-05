@@ -51,6 +51,16 @@ Events.Subscribe("UpdateHealth", function(health) {
 	document.querySelector("#health_container").style.backgroundColor = health <= 25 ? "#ff05053d" : "#0000003d";
 });
 
+Events.Subscribe("UpdateToolgun", function(text1, text2) {
+	if (text1 == false) {
+		document.querySelector("#toolgun_container").style.display = "none";
+	} else {	
+		document.querySelector("#toolgun_container").style.display = "block";
+		document.querySelector("#toolgun_current").innerHTML = text1;
+		document.querySelector("#toolgun_info").innerHTML = text2;
+	}
+});
+
 Events.Subscribe("ToggleScoreboard", function(enable) {
 	const scoreboard = document.querySelector("#scoreboard");
 
